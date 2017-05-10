@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <?include Variables.wxi ?>
+  <Bundle Name="$(var.ProductName)"
+          Version="$(var.BundleVersion)"
+          Manufacturer="$(var.Manufacturer)"
+          UpgradeCode="$(var.BundleUpgradeCode)"
+          DisableModify="yes"
+          Compressed="yes" >
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
+
+    <Chain>
+      <PackageGroupRef Id="Calculator"/>
+      <!--<PackageGroupRef Id="KLite_Setup" After="LiteningVideoPlayer"/>-->
+    </Chain>
+  </Bundle>
+</Wix>

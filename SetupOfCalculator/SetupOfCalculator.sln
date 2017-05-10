@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "SetupOfCalculator", "SetupOfCalculator\SetupOfCalculator.wixproj", "{B684A69F-DBE5-4D5D-A8FC-A8F974837370}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "BundleOfCalculator", "BundleOfCalculator\BundleOfCalculator.wixproj", "{46CDECCB-84AB-42FD-A6AE-4DC5651E5A89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,12 +17,19 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B684A69F-DBE5-4D5D-A8FC-A8F974837370}.Debug|x64.ActiveCfg = Debug|x64
 		{B684A69F-DBE5-4D5D-A8FC-A8F974837370}.Debug|x64.Build.0 = Debug|x64
-		{B684A69F-DBE5-4D5D-A8FC-A8F974837370}.Debug|x86.ActiveCfg = Debug|x64
-		{B684A69F-DBE5-4D5D-A8FC-A8F974837370}.Debug|x86.Build.0 = Debug|x64
+		{B684A69F-DBE5-4D5D-A8FC-A8F974837370}.Debug|x86.ActiveCfg = Debug|x86
+		{B684A69F-DBE5-4D5D-A8FC-A8F974837370}.Debug|x86.Build.0 = Debug|x86
 		{B684A69F-DBE5-4D5D-A8FC-A8F974837370}.Release|x64.ActiveCfg = Release|x64
 		{B684A69F-DBE5-4D5D-A8FC-A8F974837370}.Release|x64.Build.0 = Release|x64
 		{B684A69F-DBE5-4D5D-A8FC-A8F974837370}.Release|x86.ActiveCfg = Release|x86
 		{B684A69F-DBE5-4D5D-A8FC-A8F974837370}.Release|x86.Build.0 = Release|x86
+		{46CDECCB-84AB-42FD-A6AE-4DC5651E5A89}.Debug|x64.ActiveCfg = Debug|x64
+		{46CDECCB-84AB-42FD-A6AE-4DC5651E5A89}.Debug|x64.Build.0 = Debug|x64
+		{46CDECCB-84AB-42FD-A6AE-4DC5651E5A89}.Debug|x86.ActiveCfg = Debug|x86
+		{46CDECCB-84AB-42FD-A6AE-4DC5651E5A89}.Debug|x86.Build.0 = Debug|x86
+		{46CDECCB-84AB-42FD-A6AE-4DC5651E5A89}.Release|x64.ActiveCfg = Release|x86
+		{46CDECCB-84AB-42FD-A6AE-4DC5651E5A89}.Release|x86.ActiveCfg = Release|x86
+		{46CDECCB-84AB-42FD-A6AE-4DC5651E5A89}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

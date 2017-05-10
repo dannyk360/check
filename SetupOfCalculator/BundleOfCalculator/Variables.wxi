@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define BundleUpgradeCode = "{F0F809D3-A3A0-4A10-9D4A-0EF74E533EC6}"?>
+
+  <?define resourcesDir = $(sys.CURRENTDIR)..\Resources\?>
+  <?define PrerequisitesDir = $(sys.CURRENTDIR)Preq\?>
+  <?define Manufacturer = "Intel" ?>
+  <?define ProductName = "!(bind.packageName.calculator)"?>
+
+  <?define BundleVersion = "!(bind.packageVersion.calculator)"?>
+
+</Include>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <PackageGroup Id="Calculator">
+      <MsiPackage
+          Id="Calculator"
+          Name="$(var.SetupOfCalculator.TargetFileName)"
+          ForcePerMachine="yes"
+          SourceFile="$(var.SetupOfCalculator.TargetDir)"
+          Compressed="yes"
+          Cache="yes"
+          Visible="no"
+          Vital="yes"
+          DisplayInternalUI ="no"
+          SuppressSignatureVerification="yes"
+          EnableFeatureSelection="no"
+           >
+      </MsiPackage>
+    </PackageGroup>
+  </Fragment>
+</Wix>
