@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <?include PackageVariables.wxi ?>
+
+  <Product Id="*"
+         Name="!(loc.ProductName)"
+         Language="!(loc.LANG)"
+         Version="$(var.ProductVersion)"
+         Manufacturer="!(loc.ManufacturerName)"
+         UpgradeCode="$(var.UpgradeCode)">
+    <Package Compressed="yes"
+             Description="Version: $(var.ProductVersion)"
+             InstallerVersion="200"
+             InstallScope="perMachine"
+             Comments="Build Definition name: $(var.BranchName)"
+             Manufacturer="!(loc.ManufacturerName)"
+             Platform="x64"/>
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+
+    <!--UI-->
+    <UIRef Id="Custom_WixUI_InstallDir"/>
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    <!--<WixVariable Id="WixUIBannerBmp" Value="$(var.ResourcesDir)bannrbmp.bmp" />
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.ResourcesDir)BackgroundImage.bmp" />-->
+    <!--<WixVariable Id="WixUILicenseRtf" Value="$(var.ResourcesDir)20160320 RCA-SoftwareLicenseTerms.rtf" />-->
+
+    <!--Add Remove Properties-->
+    <PropertyRef Id="ARPCONTACT"/>
+    <!--<PropertyRef Id="ARPPRODUCTICON"/>-->
+
+    <!--Properties-->
+    <Property Id="ROOTDRIVE" Value="C:\" />
+    <Property Id="MsiLogging" Value="voicewarmup!"/>
+    <!--<SetProperty Id="DBHOST" Value="[%COMPUTERNAME]" Sequence="ui" After="CostFinalize"/>
+    <Property Id="DBPORT" Value="27017"/>
+    <SetProperty Id="DBPORT" Value="[DBPORT]" Sequence="ui" After="CostFinalize"/>-->
+    <Property Id="LOGNAME" Value="SkyCover" />
+
+    <!--.NET version properties-->
+    <!--<PropertyRef Id="NETFRAMEWORK40FULLINSTALLROOTDIR"/>
+    <PropertyRef Id="NETFRAMEWORK40FULLINSTALLROOTDIR64"/>
+    <PropertyRef Id="NETFRAMEWORK40CLIENTINSTALLROOTDIR"/>
+    <PropertyRef Id="NETFRAMEWORK40CLIENTINSTALLROOTDIR64"/>-->
+
+    <!--Preq check-->
+    <!--<PropertyRef Id="LC_NETFRAMEWORK46"/>
+    <PropertyRef Id="LC_WI45"/>
+    <PropertyRef Id="LC_MONGODB"/>-->
+
+    <!--Major Upgrade-->
+    <MajorUpgrade Schedule="afterInstallInitialize"
+                  AllowDowngrades="no"
+                  DowngradeErrorMessage="!(loc.MajorUpgradeNewVersionFound)" AllowSameVersionUpgrades="yes"/>
+
+    <Feature Id="ProductFeature" Title="!(loc.FeatureTitle)" Description="!(loc.FeatureDescription)" Level="1">
+      <ComponentGroupRef Id="ProductComponents"/>
+      <ComponentGroupRef Id="RegProduct"/>
+      <ComponentGroupRef Id="Shortcuts"/>
+
+    </Feature>
+
+  </Product>
+
+</Wix>

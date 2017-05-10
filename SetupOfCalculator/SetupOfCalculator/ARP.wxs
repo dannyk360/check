@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?include PackageVariables.wxi ?>
+
+  <Fragment>
+    <!-- These are properties are read by the 'Add\Remove Programs' screen ('Programs and Features' in Win >=7) -->
+
+    <!-- Company Name -->
+    <Property Id="ARPCONTACT" Value="!(loc.ManufacturerName)" />
+
+    <!-- Software Description -->
+    <Property Id="ARPCOMMENTS" Value="Release version" />
+
+    <!-- Icon -->
+    <!--<Property Id="ARPPRODUCTICON" Value="MainIcon" />-->
+
+    <!-- The id must have the same extension as the file otherwise windows can't tell the file type and the icon won't load, best leave it as the file name. -->
+    <!--<Icon Id="MainIcon" SourceFile="$(var.ResourcesDir)5DA.ico" />-->
+
+    <!-- Set up ARPINSTALLLOCATION property - In order to set the property dynamically -->
+    <SetProperty Id="ARPINSTALLLOCATION" Value="[INSTALLDIR]" After="InstallValidate" Sequence="execute">NOT Installed OR ARPINSTALLLOCATION=""</SetProperty>
+
+    <Property Id="INSTALLDIR">
+      <RegistrySearch
+        Id="FindInstallLocation"
+        Root="HKLM"
+        Key="Software\Microsoft\Windows\CurrentVersion\Uninstall\[WIX_UPGRADE_DETECTED]"
+        Name="InstallLocation"
+        Type="directory">
+      </RegistrySearch>
+    </Property>
+
+  </Fragment>
+</Wix>

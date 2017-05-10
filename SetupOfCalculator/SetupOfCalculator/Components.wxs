@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Fragment>
+    <?include PackageVariables.wxi ?>
+
+    <!--Harvest Components-->
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLDIR">
+      <ComponentGroupRef Id="cmpMain" />
+    </ComponentGroup>
+
+    <!--Set Product Registry-->
+    <ComponentGroup Id="RegProduct">
+      <Component Id="RegistryEntryInstallDir" Directory="INSTALLDIR" Guid="{3D75CE53-3E01-4759-A2B6-7DED0758025C}" KeyPath="yes" Win64="yes">
+        <RegistryKey Id="ProductRegistryRoot" Key="SOFTWARE\!(loc.ManufacturerName)\!(loc.ProductName)" Root="HKLM" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes">
+          <RegistryValue Id="Product_Code" Name="Product_Code" Value="[ProductCode]" Type="string" />
+          <RegistryValue Id="Hotfix" Name="Hotfix" Value="0" Type="string" />
+          <RegistryValue Id="InstallDir" Name="Path" Value="[INSTALLDIR]" Type="string" />
+          <RegistryValue Id="UpgradeCode" Name="UpgradeCode" Value="$(var.UpgradeCode)" Type="string" />
+          <RegistryValue Id="Product_Version" Name="Version" Value="$(var.ProductVersion)" Type="string" />
+        </RegistryKey>
+      </Component>
+    </ComponentGroup>
+
+    <!--Uninstall Shortcut-->
+    <Component Id="cmp.Uninstall.shortcut" Guid="{9CF98A45-5864-45F2-80A1-CF42E1CE8D21}" Directory="INSTALLDIR" Win64="yes">
+      <Shortcut Id="UninstallProduct"
+                Name="Uninstall"
+                Description="Uninstalls My Application"
+                Directory="INSTALLDIR"
+                Target="[SystemFolder]msiexec.exe"
+                Arguments="/x [ProductCode] /qb"/>
+      <RemoveFile Id="RemoveUninstallShortcut" Name="Uninstall*" Directory="INSTALLDIR" On="uninstall"/>
+      <RegistryValue Root="HKMU" Key="Software\SkyCover\UninstallShortcut" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+    </Component>
+
+    <ComponentGroup Id="Shortcuts">
+      <ComponentRef Id="cmp.Uninstall.shortcut"/>
+    </ComponentGroup>
+
+
+  </Fragment>
+</Wix>

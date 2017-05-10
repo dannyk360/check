@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
+    <ProductVersion>1.0</ProductVersion>
+    <ProjectGuid>{b684a69f-dbe5-4d5d-a8fc-a8f974837370}</ProjectGuid>
+    <SchemaVersion>1.0</SchemaVersion>
+    <OutputName>SkyCover</OutputName>
+    <OutputType>Package</OutputType>
+    <BuildNumber Condition=" '$(BuildNumber)' == '' ">$([System.Text.RegularExpressions.Regex]::Match($(BUILD_BUILDNUMBER), "\d+\.\d+\.\d+\.\d+"))</BuildNumber>
+    <BuildNumber Condition=" '$(BuildNumber)' == '' ">$([MSBuild]::ValueOrDefault($(BuildNumber), `1.$([System.DateTime]::Now.ToString("yy")).0.0`))</BuildNumber>
+    <RootDir Condition=" '$(RootDir)' == '' ">$([System.IO.Directory]::GetParent($(MSBuildThisFileDirectory)..\..\..\))</RootDir>
+    <HarvestingFolderDir>$([MSBuild]::ValueOrDefault('$(TF_BUILD_SOURCESDIRECTORY)', '$(BUILD_SOURCESDIRECTORY)'))\calculator\calculator\bin\$(Platform)\$(Configuration)</HarvestingFolderDir>
+    <IsVisualStudio Condition="'$(BuildingInsideVisualStudio)' == 'true'">true</IsVisualStudio>
+    <BinariesDir Condition=" '$(IsVisualStudio)' == 'true' ">$([System.IO.Path]::Combine($(RootDir), `check\calculator\calculator\bin\$(Platform)\$(Configuration)`))</BinariesDir>
+    <BinariesDir Condition="('$(IsVisualStudio)' != 'true') AND Exists($(HarvestingFolderDir))">$([MSBuild]::ValueOrDefault('$(TF_BUILD_SOURCESDIRECTORY)', '$(BUILD_SOURCESDIRECTORY)'))\calculator\calculator\bin\$(Platform)\$(Configuration)</BinariesDir>
+    <BuildDefinitionName Condition=" '$(BuildDefinitionName)' == '' ">$([MSBuild]::ValueOrDefault('$(TF_BUILD_BUILDDEFINITIONNAME)', '$(BUILD_DEFINITIONNAME)'))</BuildDefinitionName>
+    <BuildDefinitionName Condition=" '$(BuildDefinitionName)' == '' ">$(MSBuildProjectName)</BuildDefinitionName>
+    <HarvestAutogenerateGuids>false</HarvestAutogenerateGuids>
+    <HarvestGenerateGuidsNow>true</HarvestGenerateGuidsNow>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+    <SuppressIces>ICE63</SuppressIces>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+    <SuppressIces>ICE63</SuppressIces>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Release</DefineConstants>
+    <SuppressIces>ICE63</SuppressIces>
+    <WixVariables />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Release</DefineConstants>
+    <SuppressIces>ICE63</SuppressIces>
+    <WixVariables />
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ARP.wxs" />
+    <Compile Include="Components.wxs" />
+    <Compile Include="Directories.wxs" />
+    <Compile Include="LaunchConditions\NTFramework.wxs" />
+    <Compile Include="Product.wxs" />
+    <Compile Include="UI\Custom_WixUI_InstallDir.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DefaultTransform.xsl" />
+    <Content Include="PackageVariables.wxi" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Lang" />
+    <Folder Include="Lang\en-us" />
+    <Folder Include="Lang\LaunchCondition" />
+    <Folder Include="LaunchConditions" />
+    <Folder Include="UI" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Lang\en-us\en-us.wxl" />
+    <EmbeddedResource Include="Lang\LaunchCondition\AllConditions.wxl" />
+  </ItemGroup>
+  <PropertyGroup>
+    <DefineConstants>
+      $(DefineConstants);
+      BuildNumber=$(BuildNumber);
+      BuildDefinitionName=$(BuildDefinitionName)
+    </DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <Target Name="BeforeBuild" BeforeTargets="Build">
+    <PropertyGroup>
+      <SourceDir Condition="'$(SourceDir)' == ''">$(BinariesDir)</SourceDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <HarvestDirectory Include="$(SourceDir)">
+        <DirectoryRefId>INSTALLDIR</DirectoryRefId>
+        <ComponentGroupName>cmpMain</ComponentGroupName>
+        <PreprocessorVariable>var.SourceDir</PreprocessorVariable>
+        <SuppressUniqueIds>false</SuppressUniqueIds>
+        <SuppressCom>true</SuppressCom>
+        <SuppressRegistry>true</SuppressRegistry>
+        <SuppressRootDirectory>true</SuppressRootDirectory>
+        <KeepEmptyDirectories>false</KeepEmptyDirectories>
+        <Transforms>DefaultTransform.xsl</Transforms>
+      </HarvestDirectory>
+    </ItemGroup>
+    <PropertyGroup>
+      <DefineConstants>
+        $(DefineConstants);
+        SourceDir=$(SourceDir)
+      </DefineConstants>
+    </PropertyGroup>
+    <Message Text="====================Start: Before Build - calculator =====================" Importance="high" />
+    <Message Text="calculator is harvesting..." Importance="high" />
+    <Message Text="definition name = $(BUILD_BUILDNUMBER)" Importance="high" />
+    <Message Text="HarvestingFolderDir = $(HarvestingFolderDir)" Importance="high" />
+    <Message Text="Platform = $(Platform)" Importance="high" />
+    <Message Text="SourceDir = $(SourceDir)" Importance="high" />
+    <Message Text="BinariesDir = $(BinariesDir)" Importance="high" />
+    <Message Text="IsVisualStudio = $(IsVisualStudio)" Importance="high" />
+    <Message Text="====================End: Before Build - SkyCover =======================" Importance="high" />
+  </Target>
+</Project>

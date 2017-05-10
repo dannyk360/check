@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define UpgradeCode = "{3DD4C91A-F01C-4D84-8EAC-712F652EF69B}" ?>
+
+  <?define Manufacturer = "Rafael" ?>
+  <!--<?define ResourcesDir = $(sys.CURRENTDIR)..\Resources\?>-->
+
+  <?define ProductVersion = "$(var.BuildNumber)"?>
+
+  <?if $(var.BuildDefinitionName)=""?>
+  <?define BranchName = "No Branch Defined - Build locally"?>
+  <?else?>
+  <?define BranchName=$(var.BuildDefinitionName)?>
+  <?endif?>
+
+  <?if $(var.Platform) = x64 ?>
+  <?define Win64 = "yes" ?>
+  <?define ProgramFilesFolder = "ProgramFiles64Folder" ?>
+  <?else ?>
+  <?define Win64 = "no" ?>
+  <?define ProgramFilesFolder = "ProgramFilesFolder" ?>
+  <?endif ?>
+</Include>

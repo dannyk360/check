@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <PropertyRef Id="NETFRAMEWORK45"/>
+
+    <Condition Message="!(loc.Framework45)">Installed OR NETFRAMEWORK45>="#379893"</Condition>
+
+    <Property Id ="LC_NETFRAMEWORK46" Value="1"/>
+	</Fragment>
+</Wix>
